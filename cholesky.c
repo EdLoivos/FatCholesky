@@ -5,6 +5,6 @@
 int* fatoracaoCholesky (int *vaa , int *vja, int *via) {
 
 int* caa, cja, cia, ctja, ctia;
-
+int rolls = vja.length;
 
  }
