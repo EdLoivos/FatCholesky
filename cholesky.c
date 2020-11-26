@@ -51,11 +51,11 @@ for (i = 0; i < lin-1; i++) {
 // preenchimento dos demais valores.
       else{
         for (k = 0; k < j; k++) {
-          gk += caa[i+k]*caa[i+j];
+          gk += caa[i+k]*caa[k+j];
         }
         caa[i+j] = (vaa[i+j] - gk) / caa[i];
         gk = 0;
-      }      
+      }
     }
   }
 }
