@@ -33,30 +33,32 @@ for (i = 0; i < lin-1; i++) {
     if (i==j) {
 // preenchimento do elemento (0,0).
       if (i==0) {
-        caa[i+j]= (int) sqrt (vaa[i+j]);
+        caa[cia[i]+j]= (int) sqrt (vaa[cia[i]+j]);
       }
 // preenchimento dos demais valores da diagonal.
       else{
         for (k = 0; k < i; k++) {
-          gk += pow(vaa[i+k],2);
+          gk += pow(vaa[cia[i]+k],2);
         }
-        caa[i+j]= (int) sqrt (vaa[] - gk );
+        caa[cia[i]+j]= (int) sqrt (vaa[cia[i]+j] - gk );
         gk=0;
       }
     }else{
 // preenchimento dos valores da coluna (1,j)
       if (i==0) {
-        caa[i+j] = vaa[i]/caa[0];
+        caa[cia[i]+j] = vaa[i]/caa[0];
       }
 // preenchimento dos demais valores.
       else{
         for (k = 0; k < j; k++) {
-          gk += caa[i+k]*caa[k+j];
+          gk += caa[cia[i]+k]*caa[k+cia[j]];
         }
-        caa[i+j] = (vaa[i+j] - gk) / caa[i];
+        caa[cia[i]+j] = (vaa[cia[i]+j] - gk) / caa[cia[j]+j];
         gk = 0;
       }
     }
   }
 }
+}
+return caa;
 }
