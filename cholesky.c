@@ -5,7 +5,7 @@
 //[0,0,1,0,1,2]
 //[0,1,3]
 
-int* fatoracaoCholesky (int *vaa , int *vja, int *via) {
+int fatoracaoCholesky (int *vaa , int *vja, int *via) {
 
 
 // caa => vetor de dados, cja => vetor de colunas, cia => vetor de linhas.
@@ -15,7 +15,7 @@ int lin = sizeof via / sizeof via[0];
 // acumulador para posição das linhas e colunas.
 int atual = 0;
 //acumulador para calculo dos somatórios.
-int gk
+int gk;
 // iteradores.
 int i, j, k;
 // preencher os ponteiros para o inicio das linhas.
@@ -26,6 +26,7 @@ for (i = 0; i < lin-1; i++) {
   for (j = 0; j <= i; j++) {
     cja[atual+j] = j;
   }
+}
 // gerar cada valor da matriz c.
 for (i = 0; i < lin-1; i++) {
   for (j = 0; j <= i; j++) {
@@ -33,14 +34,19 @@ for (i = 0; i < lin-1; i++) {
     if (i==j) {
 // preenchimento do elemento (0,0).
       if (i==0) {
-        caa[cia[i]+j]= (int) sqrt (vaa[cia[i]+j]);
+        caa[cia[i]+j]= (int) sqrt (vaa[via[i]+j]);
       }
 // preenchimento dos demais valores da diagonal.
       else{
-        for (k = 0; k < i; k++) {
-          gk += pow(vaa[cia[i]+k],2);
+        while (k<i && vji[cia[i]+k]>vji[cia[i]+k-1]) {
+          gk += pow(vaa[via[i]+k],2);
+        }k=0;
+        while (k<=j) {
+          if (vja[cia[i]+k]==j) {
+            caa[cia[i]+j]= (int) sqrt (vaa[via[i]+k] - gk );
+          }else{
+            caa[cia[i]+j]= (int) sqrt (0 - gk );}
         }
-        caa[cia[i]+j]= (int) sqrt (vaa[cia[i]+j] - gk );
         gk=0;
       }
     }else{
@@ -50,10 +56,15 @@ for (i = 0; i < lin-1; i++) {
       }
 // preenchimento dos demais valores.
       else{
-        for (k = 0; k < j; k++) {
+        while (k<i && vji[cia[i]+k]>vji[cia[i]+k-1]) {
           gk += caa[cia[i]+k]*caa[k+cia[j]];
         }
-        caa[cia[i]+j] = (vaa[cia[i]+j] - gk) / caa[cia[j]+j];
+        while (k<=j) {
+          if (vja[cia[i]+k]==j) {
+            caa[cia[i]+j] = (vaa[via[i]+k] - gk) / caa[cia[j]+j];
+          }else{
+            caa[cia[i]+j] = (0 - gk) / caa[cia[j]+j];
+        }
         gk = 0;
       }
     }
