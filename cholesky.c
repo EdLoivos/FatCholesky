@@ -25,8 +25,12 @@ float* fatoracaoCholesky (float **a, int rows, int lb) {
 			if (i+j == lb){//calcula valores da primeira coluna da matriz original
 				g[i][j] = a[i][j]/g[0][lb];
 			}
-			else if (j == lb) {//calcula g[i][j]
-
+			else if (j != lb) {//calcula g[i][j]
+				gk = 0;
+				for (k = 0; k < lb; k++){
+					gk += g[i][j]*g[j+i-lb][k-j+lb];
+				}
+				g[i][j] = (a[i][j] - gk)/g[j+i-lb][lb];
 			}
 			else {//calcula valores da diagonal (g[i][i])
 				gk = 0;
@@ -39,21 +43,20 @@ float* fatoracaoCholesky (float **a, int rows, int lb) {
 	}//gij = sqr (aij - (som gik*gjk)/gjj ) _ gii = sqr (aii - (som gik^2))
 
 	for (i = 1; i < rows; i++){
-		for (j = lb; i+j >= lb && j >= 0; j--){
-			if (j == lb) {
+		for (j = 0; j <= lb; j++){
+			if (j != lb) {//calcula g[i][j]
 				gk = 0;
 				for (k = 0; k < lb; k++){
+					gk += g[i][j]*g[j+i-lb][k-j+lb];
+				}
+				g[i][j] = (a[i][j] - gk)/g[j+i-lb][lb];
+			} else {//calcula valores da diagonal (g[i][i])
+				gk = 0;
+				for (k = 0; k < j; k++){
 					gk += g[i][k]*g[i][k];
 				}
 				g[i][lb] = (float) sqrt (a[i][lb] - gk);
-			} else {
-				gk = 0;
-				for (k = 0; k < lb; k++){
-					gk += g[i][j]*g[i][k];
-				}
-				g[i][jAlt] = (a[i][jAlt] - gk)/g[jAlt][jAlt];
 			}
-//g00 = square a00, gi0 = ai0/g11, gii = sqr (aii - (som gik^2)), gij = sqr (aij - (som gik*gjk)/gjj )
 		}
 	}
 
