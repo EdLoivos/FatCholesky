@@ -114,7 +114,8 @@ int main (int argc, char**argv){
 	fscanf(ent, "%d", &col);
 
 	float **a;
-	float *x = (float*) malloc (sizeof (float) * lin);
+	float b[lin];
+	float *x = malloc (sizeof (float) * lin);
 	int i, j;
 
 
@@ -137,19 +138,19 @@ int main (int argc, char**argv){
 	//float b[HEIGHT] = {1,2,3};
 	//float b[HEIGHT] = {0,1,0,0};
 
-	a =(float**) malloc(sizeof (float *) * lin);
+	a = malloc(sizeof (float *) * lin);
 
 	for (i = 0; i < lin; i++){
-		a[i] =(float*) malloc (sizeof (float) * col);
+		a[i] = malloc (sizeof (float) * col);
 	}
 
 	for (i = 0; i < lin; i++){
 		for (j = 0; j < col; j++){
-			fscanf(ent, "%d", a[i][j]) ;
+			fscanf(ent, "%d", &a[i][j]);
 		}
 	}
 	for (i = 0; i< lin;i++){
-		fscanf(ent, "%d", x[i]) ;
+		fscanf(ent, "%d", &b[i]);
 	}
 
 	fatoracaoCholesky(a, lin, (col-1)/2);
