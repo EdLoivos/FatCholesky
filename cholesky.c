@@ -5,8 +5,6 @@
 #define WIDTH 5
 
 int fatoracaoCholesky (float **a, int rows, int lb) {
-	// caa => vetor de dados, cja => vetor de colunas, cia => vetor de linhas.
-	float g[rows][rows];
 	//acumulador para calculo dos somatórios.
 	float gk;
 	// iteradores.
@@ -146,6 +144,37 @@ int main (void){
 	}
 
 	for (i = 0; i < HEIGHT; i++){
+		free(a[i]);
+	}
+	free(a);
+	free(x);
+
+	return 0;
+}
+
+int resCholesky (float **mat, int rows, int col, int* resp){
+	float *x = malloc(sizeof(float) * rows);
+	int i, j;
+
+	a = malloc(sizeof(float *) * rows);
+
+	for (i = 0; i < rows; i++) {
+		a[i] = malloc(sizeof(float) * col);
+	}
+
+	for (i = 0; i < rows; i++) {
+		for (j = 0; j < col; j++) {
+			a[i][j] = g[i][j];
+		}
+	}
+	fatoracaoCholesky(a, rows, (col - 1) / 2);
+	resolucaoSistema(a, rows, (col - 1) / 2, resp , x);
+
+	for (i = 0; i < rows; i++) {
+		printf("%f\n", x[i]);
+	}
+
+	for (i = 0; i < rows; i++) {
 		free(a[i]);
 	}
 	free(a);
