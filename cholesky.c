@@ -4,17 +4,21 @@
 #define HEIGHT 4
 #define WIDTH 5
 
+float **a;
+float **g;
+float **mat;
+
 int fatoracaoCholesky (float **a, int rows, int lb) {
 	//acumulador para calculo dos somatórios.
 	float gk;
 	// iteradores.
 	int i, j, k;
 
-	for (i = 0; i < rows; i++){
+	/*for (i = 0; i < rows; i++){
 		for (j = 0; j <= lb; j++){
 			g[i][j] = 0;
 		}
-	}
+	}*/
 
 	//calcula g0,0
 
@@ -152,7 +156,7 @@ int main (void){
 	return 0;
 }
 
-int resCholesky (float **mat, int rows, int col, int* resp){
+int resCholesky (float **mat, int rows, int col, float* resp){
 	float *x = malloc(sizeof(float) * rows);
 	int i, j;
 
@@ -164,7 +168,7 @@ int resCholesky (float **mat, int rows, int col, int* resp){
 
 	for (i = 0; i < rows; i++) {
 		for (j = 0; j < col; j++) {
-			a[i][j] = g[i][j];
+			a[i][j] = mat[i][j];
 		}
 	}
 	fatoracaoCholesky(a, rows, (col - 1) / 2);
